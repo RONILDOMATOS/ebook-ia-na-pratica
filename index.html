@@ -433,6 +433,48 @@
             margin-bottom: 10px;
         }
         
+        .payment-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .payment-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            color: #667eea;
+            padding: 25px 35px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+            min-width: 200px;
+        }
+        
+        .payment-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #ffd700;
+        }
+        
+        .payment-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .payment-label {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -471,7 +513,7 @@
                 <p>🎁 Oferta por tempo limitado</p>
             </div>
             
-            <a href="#comprar" class="cta-button">QUERO COMEÇAR AGORA!</a>
+            <a href="#comprar" class="cta-button" style="margin-bottom: 20px;">ESCOLHER PLATAFORMA DE PAGAMENTO ▼</a>
         </div>
     </section>
 
@@ -727,20 +769,48 @@
     <!-- Final CTA -->
     <section class="final-cta" id="comprar">
         <div class="container">
-            <h2>Comece Sua Jornada com IA Hoje!</h2>
-            <p>Não deixe essa oportunidade passar. O futuro pertence a quem age agora.</p>
+            <h2>Escolha Sua Plataforma de Pagamento Preferida</h2>
+            <p>Selecione onde você prefere finalizar sua compra com segurança</p>
             
             <div class="urgency-box">
                 <p>⏰ Oferta Especial: R$ 47,00 (antes R$ 197,00)</p>
             </div>
             
-            <a href="https://pay.hotmart.com/https://pay.hotmart.com/W102324161B" class="cta-button">GARANTIR MINHA VAGA AGORA!</a>
+            <div class="payment-options">
+                <a href="https://pay.hotmart.com/https://pay.hotmart.com/W102324161B" class="payment-button" target="_blank">
+                    <div class="payment-icon">🔥</div>
+                    <strong>Hotmart</strong>
+                    <span class="payment-label">Pix, Cartão, Boleto</span>
+                </a>
+                
+                <a href="https://kiwify.app/SEU-LINK-KIWIFY" class="payment-button" target="_blank">
+                    <div class="payment-icon">🥝</div>
+                    <strong>Kiwify</strong>
+                    <span class="payment-label">Checkout Rápido</span>
+                </a>
+                
+                <a href="https://pay.eduzz.com/SEU-LINK-EDUZZ" class="payment-button" target="_blank">
+                    <div class="payment-icon">💳</div>
+                    <strong>Eduzz</strong>
+                    <span class="payment-label">Várias Formas</span>
+                </a>
+                
+                <a href="https://monetizze.com.br/r/SEU-LINK-MONETIZZE" class="payment-button" target="_blank">
+                    <div class="payment-icon">💰</div>
+                    <strong>Monetizze</strong>
+                    <span class="payment-label">Pagamento Seguro</span>
+                </a>
+            </div>
             
-            <p style="margin-top: 30px; font-size: 16px; opacity: 0.9;">
-                ✅ Acesso Imediato<br>
+            <p style="margin-top: 40px; font-size: 16px; opacity: 0.9;">
+                ✅ Acesso Imediato em Todas as Plataformas<br>
                 ✅ Garantia de 7 Dias<br>
-                ✅ Suporte por E-mail<br>
-                ✅ Atualizações Gratuitas
+                ✅ Mesmo Produto, Escolha Sua Preferência<br>
+                ✅ Pagamento 100% Seguro
+            </p>
+            
+            <p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+                Todas as plataformas aceitam PIX, Cartão de Crédito e Boleto
             </p>
         </div>
     </section>
@@ -788,5 +858,4 @@
         });
     </script>
 </body>
-
 </html>
