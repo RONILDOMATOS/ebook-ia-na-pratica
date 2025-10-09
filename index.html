@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA na Prática - Domine a Inteligência Artificial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .hero h1 span {
+            color: #ffd700;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 20px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            background: #ffed4e;
+        }
+        
+        .price-tag {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 24px;
+        }
+        
+        .new-price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 10px 0;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #f8f9ff;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .benefits-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .check-icon {
+            font-size: 30px;
+            color: #4caf50;
+            flex-shrink: 0;
+        }
+        
+        .benefit-content h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .benefit-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .testimonial-role {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .stars {
+            color: #ffd700;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        /* Bonus Section */
+        .bonus {
+            padding: 80px 20px;
+            background: #fff9e6;
+            text-align: center;
+        }
+        
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .bonus-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .bonus-item h4 {
+            font-size: 20px;
+            color: #667eea;
+            margin: 15px 0;
+        }
+        
+        .bonus-icon {
+            font-size: 50px;
+        }
+        
+        /* Guarantee */
+        .guarantee {
+            padding: 80px 20px;
+            background: white;
+            text-align: center;
+        }
+        
+        .guarantee-box {
+            max-width: 700px;
+            margin: 40px auto 0;
+            background: #f8f9ff;
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 3px solid #667eea;
+        }
+        
+        .guarantee-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee-box h3 {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee-box p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 80px 20px;
+            background: #f8f9ff;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: #f8f9ff;
+        }
+        
+        .faq-answer {
+            padding: 0 30px 25px;
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+        
+        .final-cta p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .urgency-box {
+            background: rgba(255,215,0,0.2);
+            border: 3px solid #ffd700;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 40px auto 50px;
+        }
+        
+        .urgency-box p {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .new-price {
+                font-size: 36px;
+            }
+            
+            .final-cta h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🔥 Lançamento 2025</div>
+            <h1>Domine a <span>Inteligência Artificial</span><br>e Transforme Seu Futuro</h1>
+            <p>O guia completo para usar IA e gerar resultados reais: mais produtividade, conteúdo profissional e novas fontes de renda</p>
+            
+            <div class="price-tag">
+                <div class="old-price">De R$ 197,00</div>
+                <div class="new-price">Por apenas R$ 47,00</div>
+                <p>🎁 Oferta por tempo limitado</p>
+            </div>
+            
+            <a href="#comprar" class="cta-button">QUERO COMEÇAR AGORA!</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">O Que Você Vai Aprender</h2>
+            <p class="section-subtitle">11 capítulos completos com mais de 80 páginas de conteúdo premium</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Fundamentos da IA</h3>
+                    <p>Entenda como a Inteligência Artificial funciona de forma clara e objetiva, sem jargões técnicos complicados</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>40+ Ferramentas</h3>
+                    <p>Domine ChatGPT, Midjourney, Synthesia, ElevenLabs e dezenas de outras ferramentas essenciais</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>7 Formas de Ganhar Dinheiro</h3>
+                    <p>Estratégias validadas para monetizar seus conhecimentos em IA e gerar renda extra</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Criação de Conteúdo</h3>
+                    <p>Produza textos, imagens, vídeos e áudios profissionais em minutos com IA</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Produtividade 10x</h3>
+                    <p>Automatize tarefas repetitivas e economize horas do seu dia com workflows inteligentes</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>50+ Prompts Prontos</h3>
+                    <p>Biblioteca completa de prompts profissionais para copiar, colar e usar imediatamente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Tudo Que Está Incluído</h2>
+            <p class="section-subtitle">Um guia completo do zero ao avançado</p>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 1: Introdução à IA</h4>
+                        <p>História, fundamentos e tudo que você precisa saber para começar</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 2: Principais Ferramentas</h4>
+                        <p>Guia completo das melhores IAs disponíveis e como usar cada uma</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 3: IA no Trabalho e Estudos</h4>
+                        <p>Multiplique sua produtividade e aprenda mais rápido com IA</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 4: Criação de Conteúdo</h4>
+                        <p>Produza textos, vídeos e áudios de qualidade profissional</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 5: Técnicas Avançadas de Prompts</h4>
+                        <p>Domine a arte de se comunicar com IA e obtenha resultados superiores</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulo 6: Como Ganhar Dinheiro com IA</h4>
+                        <p>Estratégias práticas para freelancers, produtos digitais e mais</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="check-icon">✓</div>
+                    <div class="benefit-content">
+                        <h4>Capítulos 7-11: Conteúdo Avançado</h4>
+                        <p>Imagens, vídeos, automação, ética e recursos para continuar evoluindo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">O Que Dizem Nossos Leitores</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Comprei sem expectativas altas, mas fiquei impressionado! Em 2 semanas já consegui meu primeiro cliente de criação de conteúdo com IA. Valeu cada centavo!"</p>
+                    <p class="testimonial-author">Carlos M.</p>
+                    <p class="testimonial-role">Designer Freelancer</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Finalmente um guia que explica TUDO de forma simples. Não é só teoria, tem estratégias práticas que realmente funcionam. Recomendo demais!"</p>
+                    <p class="testimonial-author">Ana Paula S.</p>
+                    <p class="testimonial-role">Empreendedora Digital</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Como estudante, este e-book foi um divisor de águas. Uso IA para todos os trabalhos e ainda ajudo colegas cobrando. Investimento que se paga sozinho!"</p>
+                    <p class="testimonial-author">Lucas R.</p>
+                    <p class="testimonial-role">Estudante</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonus Section -->
+    <section class="bonus">
+        <div class="container">
+            <h2 class="section-title">Bônus Exclusivos</h2>
+            <p class="section-subtitle">Receba gratuitamente junto com o e-book</p>
+            
+            <div class="bonus-grid">
+                <div class="bonus-item">
+                    <div class="bonus-icon">📋</div>
+                    <h4>Checklist de Ação</h4>
+                    <p>Comece a usar IA hoje mesmo com nosso passo a passo</p>
+                </div>
+                
+                <div class="bonus-item">
+                    <div class="bonus-icon">📅</div>
+                    <h4>Plano de 90 Dias</h4>
+                    <p>Roteiro completo para suas primeiras receitas com IA</p>
+                </div>
+                
+                <div class="bonus-item">
+                    <div class="bonus-icon">🔗</div>
+                    <h4>Lista de Ferramentas</h4>
+                    <p>Planilha com links diretos para todas as ferramentas</p>
+                </div>
+                
+                <div class="bonus-item">
+                    <div class="bonus-icon">🔄</div>
+                    <h4>Atualizações Gratuitas</h4>
+                    <p>Receba todas as futuras atualizações sem custo adicional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee -->
+    <section class="guarantee">
+        <div class="container">
+            <h2 class="section-title">Garantia Incondicional</h2>
+            
+            <div class="guarantee-box">
+                <div class="guarantee-icon">🛡️</div>
+                <h3>7 Dias de Garantia Total</h3>
+                <p>Você tem 7 dias para testar o e-book. Se por qualquer motivo não estiver satisfeito, devolvemos 100% do seu dinheiro. Sem perguntas, sem complicações.</p>
+                <p style="margin-top: 20px; font-weight: bold; color: #667eea;">O risco é todo nosso!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Preciso de conhecimento técnico?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Não! O e-book foi criado para iniciantes. Explicamos tudo de forma clara e simples, do zero ao avançado.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        As ferramentas são gratuitas?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Muitas têm versões gratuitas excelentes. Mostramos opções para todos os bolsos e ensinamos a escolher as melhores.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Vou conseguir ganhar dinheiro?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Fornecemos as estratégias, ferramentas e passo a passo. O resultado depende da sua aplicação, mas milhares já estão lucrando com IA!
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como recebo o e-book?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Imediatamente após a confirmação do pagamento, você recebe o link de download por e-mail. Acesso instantâneo!
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        E se eu não gostar?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Simples: 7 dias de garantia total. Devolução de 100% do valor sem perguntas. Você não tem nada a perder!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="comprar">
+        <div class="container">
+            <h2>Comece Sua Jornada com IA Hoje!</h2>
+            <p>Não deixe essa oportunidade passar. O futuro pertence a quem age agora.</p>
+            
+            <div class="urgency-box">
+                <p>⏰ Oferta Especial: R$ 47,00 (antes R$ 197,00)</p>
+            </div>
+            
+            <a href="https://pay.hotmart.com/SEU-LINK-AQUI" class="cta-button">GARANTIR MINHA VAGA AGORA!</a>
+            
+            <p style="margin-top: 30px; font-size: 16px; opacity: 0.9;">
+                ✅ Acesso Imediato<br>
+                ✅ Garantia de 7 Dias<br>
+                ✅ Suporte por E-mail<br>
+                ✅ Atualizações Gratuitas
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>IA na Prática</strong> - Guia Completo para Dominar a Inteligência Artificial</p>
+            <p>© 2025 - Todos os direitos reservados</p>
+            <p style="margin-top: 20px; font-size: 14px;">
+                Este produto é comercializado com garantia através de plataformas seguras
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.style.display = 'none';
+                });
+                
+                // Toggle current answer
+                answer.style.display = isOpen ? 'none' : 'block';
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
