@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Qual Seu Nível em IA? | IA na Prática</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Descubra seu nível de conhecimento em Inteligência Artificial! Quiz rápido e divertido.">
+    <meta property="og:title" content="Quiz: Qual Seu Nível em IA?">
+    <meta property="og:description" content="Faça o teste e descubra! 2 minutos para descobrir.">
+    <meta property="og:image" content="https://i.imgur.com/ltdMcO4.jpg">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .emoji {
+            font-size: 80px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .question {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #f8f9ff;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+        
+        .option:hover {
+            background: #eef0ff;
+            border-color: #667eea;
+            transform: translateX(10px);
+        }
+        
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .result-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .result-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .cta-box {
+            background: #fff9e6;
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .cta-box p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .cta-btn {
+            background: #ffd700;
+            color: #333;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .share-whatsapp { background: #25D366; }
+        .share-facebook { background: #1877F2; }
+        .share-twitter { background: #1DA1F2; }
+        
+        .question-number {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .emoji {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        
+        <!-- TELA INICIAL -->
+        <div class="screen active" id="start-screen">
+            <div class="emoji">🤖</div>
+            <h1>Qual Seu Nível em Inteligência Artificial?</h1>
+            <p class="subtitle">Descubra em 2 minutos! 🚀</p>
+            
+            <div style="background: #f8f9ff; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                <p style="text-align: center; color: #666; line-height: 1.6;">
+                    ✨ 8 perguntas rápidas<br>
+                    ⚡ Resultado instantâneo<br>
+                    🎁 Recomendação personalizada
+                </p>
+            </div>
+            
+            <button class="btn" onclick="startQuiz()">COMEÇAR O QUIZ!</button>
+        </div>
+        
+        <!-- TELA DE PERGUNTAS -->
+        <div class="screen" id="quiz-screen">
+            <div class="question-number" id="questionNumber"></div>
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>PRÓXIMA</button>
+        </div>
+        
+        <!-- TELA DE RESULTADO -->
+        <div class="screen" id="result-screen">
+            <div class="result-box">
+                <div class="emoji" id="resultEmoji"></div>
+                <div class="result-title" id="resultTitle"></div>
+                <div class="score" id="resultScore"></div>
+                <div class="result-desc" id="resultDesc"></div>
+            </div>
+            
+            <div class="cta-box">
+                <h3>🚀 Quer Dominar IA de Verdade?</h3>
+                <p>Guia completo do ZERO ao AVANÇADO!<br>80+ páginas • 40+ ferramentas • 50+ prompts prontos</p>
+                <a href="https://ronildomatos.github.io/ebook-ia-na-pratica/" class="cta-btn" target="_blank">
+                    QUERO O GUIA COMPLETO! 📚
+                </a>
+            </div>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <p style="color: #666; margin-bottom: 15px; font-weight: bold;">Compartilhe seu resultado! 👇</p>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn share-whatsapp" id="shareWhatsApp" target="_blank">
+                        📱 WhatsApp
+                    </a>
+                    <a href="#" class="share-btn share-facebook" id="shareFacebook" target="_blank">
+                        📘 Facebook
+                    </a>
+                    <a href="#" class="share-btn share-twitter" id="shareTwitter" target="_blank">
+                        🐦 Twitter
+                    </a>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="restartQuiz()" style="margin-top: 25px; background: #6c757d;">
+                REFAZER O QUIZ
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Você já usou alguma ferramenta de IA?",
+                options: [
+                    { text: "Sim, uso diariamente! 🚀", points: 3 },
+                    { text: "Já usei algumas vezes 🤔", points: 2 },
+                    { text: "Só testei uma vez ⚡", points: 1 },
+                    { text: "Nunca usei 😅", points: 0 }
+                ]
+            },
+            {
+                question: "O que é ChatGPT para você?",
+                options: [
+                    { text: "Ferramenta essencial no meu dia a dia! 💼", points: 3 },
+                    { text: "Conheço e sei usar o básico 📝", points: 2 },
+                    { text: "Já ouvi falar mas não usei 👂", points: 1 },
+                    { text: "Não sei o que é 🤷", points: 0 }
+                ]
+            },
+            {
+                question: "Você sabe o que é um 'prompt'?",
+                options: [
+                    { text: "Sim! Crio prompts eficazes 🎯", points: 3 },
+                    { text: "Tenho uma ideia básica 💡", points: 2 },
+                    { text: "Já ouvi falar vagamente 🤔", points: 1 },
+                    { text: "Não faço ideia 😕", points: 0 }
+                ]
+            },
+            {
+                question: "Você já criou imagens com IA?",
+                options: [
+                    { text: "Sim! Uso Midjourney/DALL-E 🎨", points: 3 },
+                    { text: "Já testei algumas ferramentas 🖼️", points: 2 },
+                    { text: "Nunca criei, mas vi exemplos 👀", points: 1 },
+                    { text: "Não sabia que era possível 😮", points: 0 }
+                ]
+            },
+            {
+                question: "Qual sua visão sobre o futuro da IA?",
+                options: [
+                    { text: "Vai transformar TUDO! Estou me preparando 🚀", points: 3 },
+                    { text: "É importante, preciso aprender mais 📚", points: 2 },
+                    { text: "Tenho curiosidade mas não urgência 🤷", points: 1 },
+                    { text: "Não penso muito nisso 😐", points: 0 }
+                ]
+            },
+            {
+                question: "Você ganha ou ganharia dinheiro com IA?",
+                options: [
+                    { text: "Sim! Já ofereço serviços com IA 💰", points: 3 },
+                    { text: "Estou aprendendo para monetizar 📈", points: 2 },
+                    { text: "Tenho interesse mas não sei como 🤔", points: 1 },
+                    { text: "Nunca pensei nisso 😅", points: 0 }
+                ]
+            },
+            {
+                question: "Quantas ferramentas de IA você conhece?",
+                options: [
+                    { text: "Mais de 10! Sou expert 🎓", points: 3 },
+                    { text: "Umas 5-10 ferramentas ⚡", points: 2 },
+                    { text: "Apenas 1-3 ferramentas 🔍", points: 1 },
+                    { text: "Nenhuma ou quase nenhuma 😬", points: 0 }
+                ]
+            },
+            {
+                question: "Quanto tempo você dedica para aprender IA?",
+                options: [
+                    { text: "Todos os dias! É prioridade 🔥", points: 3 },
+                    { text: "Algumas vezes por semana 📅", points: 2 },
+                    { text: "Raramente, quando dá tempo ⏰", points: 1 },
+                    { text: "Não dedico tempo ainda 🚫", points: 0 }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedOption = null;
+
+        function startQuiz() {
+            document.getElementById('start-screen').classList.remove('active');
+            document.getElementById('quiz-screen').classList.add('active');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('questionNumber').textContent = `Pergunta ${currentQuestion + 1} de ${questions.length}`;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.textContent = option.text;
+                div.onclick = () => selectOption(index);
+                optionsContainer.appendChild(div);
+            });
+            
+            selectedOption = null;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            selectedOption = index;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (selectedOption === null) return;
+            
+            score += questions[currentQuestion].options[selectedOption].points;
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-screen').classList.remove('active');
+            document.getElementById('result-screen').classList.add('active');
+            document.getElementById('progressBar').style.width = '100%';
+            
+            const maxScore = questions.length * 3;
+            const percentage = Math.round((score / maxScore) * 100);
+            
+            let emoji, title, desc, level;
+            
+            if (percentage >= 80) {
+                emoji = '🏆';
+                title = 'EXPERT EM IA!';
+                level = 'Expert';
+                desc = 'Parabéns! Você já domina IA e está à frente da maioria! Continue evoluindo e explorando novas ferramentas para se manter no topo!';
+            } else if (percentage >= 60) {
+                emoji = '🚀';
+                title = 'INTERMEDIÁRIO AVANÇADO!';
+                level = 'Avançado';
+                desc = 'Muito bem! Você tem uma base sólida em IA. Agora é hora de aprofundar seus conhecimentos e começar a monetizar essas habilidades!';
+            } else if (percentage >= 35) {
+                emoji = '📚';
+                title = 'INICIANTE PROMISSOR!';
+                level = 'Iniciante';
+                desc = 'Bom começo! Você já deu os primeiros passos. Com o guia certo, você pode dominar IA rapidamente e se destacar no mercado!';
+            } else {
+                emoji = '🌱';
+                title = 'COMEÇANDO AGORA!';
+                level = 'Novato';
+                desc = 'Não se preocupe! Todo expert começou do zero. Este é o momento perfeito para aprender IA e garantir seu futuro profissional!';
+            }
+            
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultScore').textContent = percentage + '%';
+            document.getElementById('resultDesc').textContent = desc;
+            
+            // Configurar botões de compartilhamento
+            const shareText = `Fiz o quiz de IA e meu nível é: ${title} (${percentage}%)! Faça você também:`;
+            const shareUrl = 'https://ronildomatos.github.io/ebook-ia-na-pratica/';
+            
+            document.getElementById('shareWhatsApp').href = 
+                `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+            
+            document.getElementById('shareFacebook').href = 
+                `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+            
+            document.getElementById('shareTwitter').href = 
+                `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            selectedOption = null;
+            
+            document.getElementById('result-screen').classList.remove('active');
+            document.getElementById('start-screen').classList.add('active');
+            document.getElementById('progressBar').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
